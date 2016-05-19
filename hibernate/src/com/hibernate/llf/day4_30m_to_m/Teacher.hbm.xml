@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hibernate.llf.day4_30m_to_m">
+    <class name="Teacher" table="t_teacher">
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name" length="20"/>
+        <!-- 此时set里不需要指定哪个table，因为one-to-many里指对应class，映射到该类的表中-->
+        <!--inverse属性:
+				默认为false，表示本方维护关联关系。
+				如果为true，表示本方不维护关联关系。
+				只是影响是否能设置外键列的值（设成有效值或是null值），对获取信息没有影响。
+
+			cascade属性：
+				默认为none，代表不级联。
+				级联是指操作主对象时，对关联的对象也做相同的操作。(如删除部门也把对应的员工从员工表里删除)
+				可设为：delete, save-update, all, none ...-->
+
+        <set name="studentSet" table="teacher_student" inverse="false">
+            <!--colum对象关联表里的外键id-->
+            <key column="teacherid"></key>
+            <!-- 部门和员工一对多关系-->
+            <many-to-many class="Student" column="studentid"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

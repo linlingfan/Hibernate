@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.hibernate.test">
+    <class name="UserAccount" table="t_userAccount">
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="loginNane" type="string" column="loginName"/>
+        <property name="password" type="java.lang.String"></property>
+
+        <!-- employee属性 表示与员工的一对一关系  本方有外键-->
+        <many-to-one name="employee" class="Employee" column="employeeid" unique="true">
+
+        </many-to-one>
+
+        <!-- privilegeSet属性 表示与用户表的多对多关系-->
+        <set name="privilegeSet" table="t_account_privilege">
+            <key column="userAccountid"></key>
+            <many-to-many class="Privilege" column="privilegeid"></many-to-many>
+        </set>
+    </class>
+
+</hibernate-mapping>

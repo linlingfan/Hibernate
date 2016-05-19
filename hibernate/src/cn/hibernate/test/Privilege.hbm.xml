@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.hibernate.test">
+    <class name="Privilege" table="t_privilege">
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="action" type="string" column="action"/>
+
+        <!-- userAccountSet属性 表示用户表和权限的多对多-->
+        <set name="userAccountSet" table="t_account_privilege">
+            <!--colum对象关联表里的外键id-->
+            <key column="privilegeid"></key>
+            <!-- 部门和员工一对多关系-->
+            <many-to-many class="UserAccount" column="userAccountid"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hibernate.llf.day5_02o_to_o2">
+    <class name="Idcard" table="t_idcard2">
+        <!--基于主键的一对一
+            有外键方的主键生成策略一定要是foreign。
+            参数property：
+            生成主键值时所根据的对象。
+            -->
+        <id name="id" type="int" column="id">
+            <generator class="foreign">
+                <param name="property">person</param>
+            </generator>
+        </id>
+        <property name="idnum" type="string" column="idnum" length="20"/>
+
+        <!-- person属性，Person类型。
+            表达的是本类与Person的一对一。
+            采用基于主键的一对一映射方式，本方有外键方。 -->
+        <one-to-one name="person" class="Person" constrained="true">
+        </one-to-one>
+    </class>
+
+</hibernate-mapping>
